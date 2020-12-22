@@ -62,10 +62,17 @@ class BST:
             print(curr.data, end=' ')
 
     def findVal(self, key):
-        pass
+        return self._findVal(self.root, key)
 
     def _findVal(self, curr, key):
-        pass
+        if curr:
+            if key == curr.data:
+                return "Value found in tree"
+            elif key < curr.data:
+                return self._findVal(curr.lchild, key)
+            else:
+                return self._findVal(curr.rchild, key)
+        return 'Value not found in tree'
 
     def deleteVal(self, key):
         pass
@@ -90,3 +97,6 @@ tree.insert("L")
 tree.inOrder()
 tree.preOrder()
 tree.postOrder()
+print(tree.findVal("E"))
+print(tree.findVal("J"))
+print(tree.findVal("Z"))
