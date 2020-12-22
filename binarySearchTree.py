@@ -62,9 +62,11 @@ class BST:
             print(curr.data, end=' ')
 
     def findVal(self, key):
+        '''calls the private method _findVal'''
         return self._findVal(self.root, key)
 
     def _findVal(self, curr, key):
+        '''returns True if key is found in tree, False otherwise'''
         if curr:
             if key == curr.data:
                 return "Value found in tree"
@@ -97,6 +99,6 @@ tree.insert("L")
 tree.inOrder()
 tree.preOrder()
 tree.postOrder()
-print(tree.findVal("E"))
-print(tree.findVal("J"))
-print(tree.findVal("Z"))
+print(tree.findVal("E"))    # value found
+print(tree.findVal("J"))    # value found
+print(tree.findVal("Z"))    # value not found
