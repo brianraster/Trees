@@ -29,33 +29,64 @@ class BST:
                 self._insert(curr.lchild, key)
 
     def inOrder(self):
-        pass
+        '''left, root, right'''
+        self._inOrder(self.root)
+        print('')
 
     def _inOrder(self, curr):
-        pass
+        if curr:
+            self._inOrder(curr.lchild)
+            print(curr.data, end=' ')
+            self._inOrder(curr.rchild)
 
-    def pre_order(self):
+    def preOrder(self):
         '''root, left, right'''
-        pass
+        self._preOrder(self.root)
+        print('')
 
-    def _pre_order(self, curr):
-        pass
+    def _preOrder(self, curr):
+        if curr:
+            print(curr.data, end=' ')
+            self._preOrder(curr.lchild)
+            self._preOrder(curr.rchild)
 
-    def post_order(self):
+    def postOrder(self):
         '''left, right, root'''
+        self._postOrder(self.root)
+        print('')
+
+    def _postOrder(self, curr):
+        if curr:
+            self._postOrder(curr.lchild)
+            self._postOrder(curr.rchild)
+            print(curr.data, end=' ')
+
+    def findVal(self, key):
         pass
 
-    def _post_order(self, curr):
+    def _findVal(self, curr, key):
         pass
 
-    def find_val(self, key):
+    def deleteVal(self, key):
         pass
 
-    def _find_val(self, curr, key):
+    def _deleteVal(self, curr, prev, is_left, key):
         pass
 
-    def delete_val(self, key):
-        pass
-
-    def _delete_val(self, curr, prev, is_left, key):
-        pass
+tree = BST()
+tree.insert("F")
+tree.insert("C")
+tree.insert("G")
+tree.insert("A")
+tree.insert("B")
+tree.insert("K")
+tree.insert("H")
+tree.insert("E")
+tree.insert("D")
+tree.insert("I")
+tree.insert("M")
+tree.insert("J")
+tree.insert("L")
+tree.inOrder()
+tree.preOrder()
+tree.postOrder()
