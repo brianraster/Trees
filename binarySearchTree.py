@@ -76,16 +76,46 @@ class BST:
                 return self._findVal(curr.rchild, key)
         return 'Value not found in tree'
 
+    def minRSubtree(self, curr):
+        if curr.lchild == None:
+            return curr
+        else:
+            return self.minRSubtree(curr.lchild)
+
     def deleteVal(self, key):
         self._deleteVal(self.root, None, None, key)
 
     def _deleteVal(self, curr, prev, isLeft, key):
         if curr:
             if key == curr.data:
-                if isLeft:
-                    prev.lchild = None
+                if curr.lchild and curr.rchild:
+                    minChild = self.minRSubtree(curr.rchild)
+                    curr.data = minChild.data
+                    self._deleteVal(curr.rchild, curr, False, minChild.data)
+                elif curr.lchild == None and curr.rchild == None:
+                    if prev:
+                        if isLeft:
+                            prev.lchild = None
+                        else:
+                            prev.rchild = None
+                    else:
+                        self.root = None
+                elif curr.lchild == None:
+                    if prev:
+                        if isLeft:
+                            prev.lchild = curr.rchild
+                        else:
+                            prev.rchild = curr.rchild
+                    else:
+                        self.root = curr.rchild
                 else:
-                    prev.rchild = None
+                    if prev:
+                        if isLeft:
+                            prev.lchild = curr.lchild
+                        else:
+                            prev.rchild = curr.lchild
+                    else:
+                        self.root = curr.lchild
             elif key < curr.data:
                 self._deleteVal(curr.lchild, curr, True, key)
             elif key > curr.data:
@@ -93,28 +123,48 @@ class BST:
         else:
             print(f"{key} not found in tree")
 
+# Tests
 tree = BST()
 tree.insert("F")
+tree.insert("C")
+print("Test deleting leaf node which is left child of parent")
+tree.inOrder()
+tree.deleteVal("C")
+tree.inOrder()
 tree.insert("G")
+print("Test deleting leaf node which is right child of parent")
 tree.inOrder()
 tree.deleteVal("G")
 tree.inOrder()
-
-
-# tree.insert("G")
-# tree.insert("A")
-# tree.insert("B")
-# tree.insert("K")
-# tree.insert("H")
-# tree.insert("E")
-# tree.insert("D")
-# tree.insert("I")
-# tree.insert("M")
-# tree.insert("J")
-# tree.insert("L")
-# tree.inOrder()
-# tree.preOrder()
-# tree.postOrder()
-# print(tree.findVal("E"))    # value found
-# print(tree.findVal("J"))    # value found
-# print(tree.findVal("Z"))    # value not found
+tree.insert("A")
+print("Test deleting parent/root node which has one child")
+tree.inOrder()
+tree.deleteVal("F")
+tree.inOrder()
+print("Test deleting root node which has no children")
+tree.inOrder()
+tree.deleteVal("A")
+tree.inOrder()
+tree.insert("F")
+tree.insert("C")
+tree.insert("G")
+tree.insert("A")
+tree.insert("B")
+tree.insert("K")
+tree.insert("E")
+tree.insert("H")
+tree.insert("D")
+tree.insert("I")
+tree.insert("M")
+tree.insert("J")
+tree.insert("L")
+tree.inOrder()
+tree.deleteVal("F")
+tree.inOrder()
+tree.inOrder()
+tree.deleteVal("K")
+tree.inOrder()
+tree.inOrder()
+tree.deleteVal("C")
+tree.inOrder()
+tree.deleteVal("Z")
