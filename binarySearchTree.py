@@ -77,28 +77,44 @@ class BST:
         return 'Value not found in tree'
 
     def deleteVal(self, key):
-        pass
+        self._deleteVal(self.root, None, None, key)
 
-    def _deleteVal(self, curr, prev, is_left, key):
-        pass
+    def _deleteVal(self, curr, prev, isLeft, key):
+        if curr:
+            if key == curr.data:
+                if isLeft:
+                    prev.lchild = None
+                else:
+                    prev.rchild = None
+            elif key < curr.data:
+                self._deleteVal(curr.lchild, curr, True, key)
+            elif key > curr.data:
+                self._deleteVal(curr.rchild, curr, False, key)
+        else:
+            print(f"{key} not found in tree")
 
 tree = BST()
 tree.insert("F")
-tree.insert("C")
 tree.insert("G")
-tree.insert("A")
-tree.insert("B")
-tree.insert("K")
-tree.insert("H")
-tree.insert("E")
-tree.insert("D")
-tree.insert("I")
-tree.insert("M")
-tree.insert("J")
-tree.insert("L")
 tree.inOrder()
-tree.preOrder()
-tree.postOrder()
-print(tree.findVal("E"))    # value found
-print(tree.findVal("J"))    # value found
-print(tree.findVal("Z"))    # value not found
+tree.deleteVal("G")
+tree.inOrder()
+
+
+# tree.insert("G")
+# tree.insert("A")
+# tree.insert("B")
+# tree.insert("K")
+# tree.insert("H")
+# tree.insert("E")
+# tree.insert("D")
+# tree.insert("I")
+# tree.insert("M")
+# tree.insert("J")
+# tree.insert("L")
+# tree.inOrder()
+# tree.preOrder()
+# tree.postOrder()
+# print(tree.findVal("E"))    # value found
+# print(tree.findVal("J"))    # value found
+# print(tree.findVal("Z"))    # value not found
